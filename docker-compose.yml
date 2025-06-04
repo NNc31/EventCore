@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   postgres:
     image: postgres:15
@@ -6,15 +8,14 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
-    ports:
-      - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
     networks:
       - eventcore-net
 
   api-gateway:
-    image: api-gateway:latest
+    build:
+      context: ./api-gateway
     ports:
       - "8080:8080"
     depends_on:
@@ -24,11 +25,10 @@ services:
       - eventcore-net
 
   user-service:
-    image: user-service:latest
-    expose:
-      - "8081"
-    volumes:
-      - ./data/avatars:/app/uploads/avatars
+    build:
+      context: ./user-service
+    ports:
+      - "8081:8081"
     depends_on:
       - postgres
     environment:
@@ -44,7 +44,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
-      - "4200:4200"
+      - "8031:80"
     depends_on:
       - api-gateway
     networks:

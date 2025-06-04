@@ -10,9 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -48,18 +46,8 @@ public class UserController {
         }
     }
 
-    @PostMapping("/avatar")
-    public ResponseEntity<?> uploadAvatar(@RequestParam("file") MultipartFile file) {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        if (userService.updateAvatar(username, file)) {
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
-    }
-
     @GetMapping("/test")
-    public List<String> getTest() {
-        return List.of("Test method", "Success");
+    public ResponseEntity<String> test() {
+        return ResponseEntity.ok("User service is alive!");
     }
 }
