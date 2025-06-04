@@ -21,18 +21,16 @@ public class User {
     private String email;
 
     private String role;
-    private String avatarUrl;
     private LocalDateTime createdAt;
 
     public User() {
     }
 
-    public User(String username, String password, String email, String role, String avatarUrl) {
+    public User(String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.role = role;
-        this.avatarUrl = avatarUrl;
+        this.role = "ROLE_USER";
         this.createdAt = LocalDateTime.now();
     }
 
@@ -74,14 +72,6 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
-    }
-
-    public String getAvatarUrl() {
-        return avatarUrl;
-    }
-
-    public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl;
     }
 
     public LocalDateTime getCreatedAt() {

@@ -11,8 +11,10 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>api-gateway</module>
         <module>user-service</module>
-        <!--module>api-gateway</module>
+        <module>security-lib</module>
+        <!--
         <module>event-service</module>
         <module>ticket-service</module>
         <module>notification-service</module>
@@ -25,6 +27,8 @@
         <spring.cloud.version>2023.0.1</spring.cloud.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
     <dependencyManagement>
@@ -63,6 +67,7 @@
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>3.5.0</version>
                 </plugin>
             </plugins>
         </pluginManagement>

@@ -13,10 +13,22 @@ services:
     networks:
       - eventcore-net
 
+  api-gateway:
+    image: api-gateway:latest
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+      - user-service
+    networks:
+      - eventcore-net
+
   user-service:
     image: user-service:latest
-    ports:
-      - "8081:8081"
+    expose:
+      - "8081"
+    volumes:
+      - ./data/avatars:/app/uploads/avatars
     depends_on:
       - postgres
     environment:
@@ -24,6 +36,17 @@ services:
       SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
       SPRING_DATASOURCE_PASSWORD: ${DATABASE_PASSWORD}
       JWT_SECRET: ${JWT_SECRET}
+    networks:
+      - eventcore-net
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4200"
+    depends_on:
+      - api-gateway
     networks:
       - eventcore-net
 
