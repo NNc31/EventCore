@@ -1,7 +1,7 @@
 package com.nefodov.eventcore.userservice.service;
 
-import com.nefodov.eventcore.userservice.model.LoginRequest;
-import com.nefodov.eventcore.userservice.model.RegistrationRequest;
+import com.nefodov.eventcore.userservice.model.SignInRequest;
+import com.nefodov.eventcore.userservice.model.SignUpRequest;
 import com.nefodov.eventcore.userservice.model.User;
 import com.nefodov.eventcore.userservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,13 +29,13 @@ public class UserService {
         this.authenticationManager = authenticationManager;
     }
 
-    public User authenticateAndGetUser(LoginRequest request) {
+    public User authenticateAndGetUser(SignInRequest request) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.username(), request.password()));
         return userRepository.findByUsername(request.username())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
-    public boolean register(RegistrationRequest request) {
+    public boolean register(SignUpRequest request) {
         userRepository.save(new User(request.username(), request.password(), request.email()));
         return true;
     }

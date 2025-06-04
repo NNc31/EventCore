@@ -14,8 +14,7 @@ services:
       - eventcore-net
 
   api-gateway:
-    build:
-      context: ./api-gateway
+    image: api-gateway:latest
     ports:
       - "8080:8080"
     depends_on:
@@ -25,8 +24,7 @@ services:
       - eventcore-net
 
   user-service:
-    build:
-      context: ./user-service
+    image: user-service:latest
     ports:
       - "8081:8081"
     depends_on:
@@ -40,9 +38,7 @@ services:
       - eventcore-net
 
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
+    image: frontend:latest
     ports:
       - "8031:80"
     depends_on:

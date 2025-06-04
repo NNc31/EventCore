@@ -2,8 +2,8 @@ package com.nefodov.eventcore.userservice.controller;
 
 import com.nefodov.eventcore.security.jwt.JwtService;
 import com.nefodov.eventcore.userservice.model.JwtResponse;
-import com.nefodov.eventcore.userservice.model.LoginRequest;
-import com.nefodov.eventcore.userservice.model.RegistrationRequest;
+import com.nefodov.eventcore.userservice.model.SignInRequest;
+import com.nefodov.eventcore.userservice.model.SignUpRequest;
 import com.nefodov.eventcore.userservice.model.User;
 import com.nefodov.eventcore.userservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +26,8 @@ public class UserController {
         this.jwtService = jwtService;
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
+    @PostMapping("/signin")
+    public ResponseEntity<?> signIn(@RequestBody SignInRequest request) {
         try {
             User user = userService.authenticateAndGetUser(request);
             String jwt = jwtService.generateToken(user.getUsername(), List.of(user.getRole()));
@@ -37,8 +37,8 @@ public class UserController {
         }
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegistrationRequest request) {
+    @PostMapping("/signup")
+    public ResponseEntity<?> signUp(@RequestBody SignUpRequest request) {
         if (userService.register(request)) {
             return ResponseEntity.ok().build();
         } else {
