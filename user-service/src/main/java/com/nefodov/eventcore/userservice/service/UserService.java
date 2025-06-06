@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,11 +23,14 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final AuthenticationManager authenticationManager;
+    private final PasswordEncoder passwordEncoder;
 
     public UserService(@Autowired UserRepository userRepository,
-                       @Autowired AuthenticationManager authenticationManager) {
+                       @Autowired AuthenticationManager authenticationManager,
+                       @Autowired PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.authenticationManager = authenticationManager;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public User authenticateAndGetUser(SignInRequest request) {
@@ -35,8 +39,13 @@ public class UserService {
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    }
+
     public boolean register(SignUpRequest request) {
-        userRepository.save(new User(request.username(), request.password(), request.email()));
+        userRepository.save(new User(request.username(), passwordEncoder.encode(request.password()), request.email()));
         return true;
     }
 

@@ -1,15 +1,22 @@
-<form (ngSubmit)="onSubmit()">
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="signup-form">
   <label>
     Username:
-    <input [(ngModel)]="form.username" name="username" required>
+    <input formControlName="username" required>
   </label>
   <label>
     Email:
-    <input [(ngModel)]="form.email" name="email" type="email" required>
+    <input formControlName="email" type="email" required>
   </label>
   <label>
     Password:
-    <input [(ngModel)]="form.password" name="password" type="password" required>
+    <input formControlName="password" name="password" type="password" required>
   </label>
-  <button type="submit">Sign Up</button>
+  <button type="submit" [disabled]="form.invalid">Sign Up</button>
+  <div *ngIf="errorMessage" class="error">
+    {{ errorMessage }}
+  </div>
 </form>
+
+<div *ngIf="isLoading" class="spinner">
+  Идёт регистрация...
+</div>

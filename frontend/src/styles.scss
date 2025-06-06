@@ -1,1 +1,23 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  background-color: #121212;
+  color: #E5E7EB;
+}
+
+.mat-card {
+  background-color: #1e1e1e;
+  color: #E5E7EB;
+}
+
+.mat-button {
+  font-weight: 500;
+}
+
+.custom-snackbar {
+  background-color: #f0f0f0 !important;
+  color: #333 !important;
+  font-weight: bold;
+  border-radius: 8px;
+  max-width: 344px !important;
+  margin: 0 auto !important;
+  text-align: center;
+}

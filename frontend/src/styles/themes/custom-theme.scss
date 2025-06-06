@@ -1,0 +1,30 @@
+@use '@angular/material' as mat;
+
+$custom-primary: (
+  50: #f0e7ff,
+  100: #d4c2ff,
+  200: #b899ff,
+  500: #8b5cf6,
+  700: #6d28d9,
+  contrast: (
+    500: white,
+  )
+);
+
+$custom-accent: (
+  50: #fff9db,
+  100: #ffecad,
+  500: #facc15,
+  700: #eab308,
+  contrast: (
+    500: black,
+  )
+);
+
+$custom-theme: mat.define-dark-theme((
+  color: (
+    primary: mat.define-palette($custom-primary, 500),
+    accent: mat.define-palette($custom-accent, 500),
+    warn: mat.define-palette(mat.$red-palette, 600)
+  )
+));

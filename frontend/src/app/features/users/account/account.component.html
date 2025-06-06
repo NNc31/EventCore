@@ -1,0 +1,7 @@
+<p>Account page</p>
+<div *ngIf="user">
+  <h2>Account Info</h2>
+  <p><strong>Username:</strong> {{ user.username }}</p>
+  <p><strong>Email:</strong> {{ user.email }}</p>
+  <p><strong>Joined:</strong> {{ user.createdAt | date: 'medium' }}</p>
+</div>

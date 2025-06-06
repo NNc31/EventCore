@@ -1,0 +1,14 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="signin-form">
+  <label>
+    Username:
+    <input formControlName="username" required>
+  </label>
+  <label>
+    Password:
+    <input formControlName="password" type="password" required>
+  </label>
+  <button type="submit" [disabled]="form.invalid">Sign In</button>
+  <div *ngIf="errorMessage" class="error">
+    {{ errorMessage }}
+  </div>
+</form>
